@@ -14,48 +14,56 @@
 <body>
 
   <!-- ============================================================
-       LOGIN SCREEN
+       AUTH SCREEN - Login/Register Toggle
   ============================================================ -->
-  <div id="loginScreen" class="login-screen">
+  <div id="authScreen" class="auth-screen">
 
-    <!-- Login card container -->
-    <div class="login-card">
+    <!-- Auth card container -->
+    <div class="auth-card">
 
-      <div class="login-branding">
-        <img src="assets/logo.png" alt="University Logo" class="login-logo" onerror="this.style.display='none'" />
+      <div class="auth-branding">
+        <img src="assets/logo.png" alt="University Logo" class="auth-logo" onerror="this.style.display='none'" />
 
-        <h1 class="login-university-name">Federal University, Oye-Ekiti</h1>
-        <p class="login-subtitle">Student Support FAQs Chatbot</p>
+        <h1 class="auth-university-name">Federal University, Oye-Ekiti</h1>
+        <p class="auth-subtitle">Student Support FAQs Chatbot</p>
       </div>
 
-      <!-- Login form — uses Fetch API, does NOT submit to server directly -->
-      <form id="loginForm" class="login-form" autocomplete="off">
+      <!-- Toggle between Login and Register -->
+      <div class="auth-toggle">
+        <button id="toggleLoginBtn" class="toggle-btn active" data-mode="login">Login</button>
+        <button id="toggleRegisterBtn" class="toggle-btn" data-mode="register">Register</button>
+      </div>
+
+      <!-- ============================================================
+           LOGIN FORM
+      ============================================================ -->
+      <form id="loginForm" class="auth-form active" autocomplete="off">
 
         <!-- Error message area -->
-        <div id="loginError" class="login-error" role="alert" aria-live="polite"></div>
+        <div id="loginError" class="auth-error" role="alert" aria-live="polite"></div>
 
         <!-- Username -->
         <div class="form-group">
-          <label for="usernameInput">Student Username</label>
-          <input type="text" id="usernameInput" name="username" placeholder="Enter your username" required
+          <label for="loginUsernameInput">Student Username</label>
+          <input type="text" id="loginUsernameInput" name="username" placeholder="Enter your username" required
             autocomplete="username" maxlength="50" />
         </div>
 
         <!-- Password -->
         <div class="form-group">
-          <label for="passwordInput">Password</label>
+          <label for="loginPasswordInput">Password</label>
           <div class="password-wrapper">
-            <input type="password" id="passwordInput" name="password" placeholder="Enter your password" required
+            <input type="password" id="loginPasswordInput" name="password" placeholder="Enter your password" required
               autocomplete="current-password" maxlength="100" />
             <!-- Toggle password visibility button -->
-            <button type="button" id="togglePassword" class="toggle-password" aria-label="Toggle password visibility">
+            <button type="button" id="loginTogglePassword" class="toggle-password" aria-label="Toggle password visibility">
               👁
             </button>
           </div>
         </div>
 
         <!-- Login button -->
-        <button type="submit" id="loginBtn" class="btn-login">
+        <button type="submit" id="loginBtn" class="btn-submit">
           <span id="loginBtnText">Login</span>
           <span id="loginSpinner" class="spinner hidden"></span>
         </button>
@@ -66,13 +74,103 @@
         </p>
 
       </form>
-    </div><!-- end login-card -->
+
+      <!-- ============================================================
+           REGISTRATION FORM
+      ============================================================ -->
+      <form id="registerForm" class="auth-form" autocomplete="off">
+
+        <!-- Error message area -->
+        <div id="registerError" class="auth-error" role="alert" aria-live="polite"></div>
+
+        <!-- Full Name -->
+        <div class="form-group">
+          <label for="fullNameInput">Full Name</label>
+          <input type="text" id="fullNameInput" name="fullName" placeholder="Enter your full name" required
+            maxlength="100" />
+        </div>
+
+        <!-- Username -->
+        <div class="form-group">
+          <label for="regUsernameInput">Create Username</label>
+          <input type="text" id="regUsernameInput" name="username" placeholder="Choose a username (min 4 chars)" required
+            autocomplete="username" minlength="4" maxlength="50" />
+        </div>
+
+        <!-- Department -->
+        <div class="form-group">
+          <label for="departmentInput">Department</label>
+          <select id="departmentInput" name="department" required>
+            <option value="">-- Select Department --</option>
+            <option value="Computer Science">Computer Science</option>
+            <option value="Electrical Engineering">Electrical Engineering</option>
+            <option value="Business Administration">Business Administration</option>
+            <option value="Mechanical Engineering">Mechanical Engineering</option>
+            <option value="Civil Engineering">Civil Engineering</option>
+            <option value="Mathematics">Mathematics</option>
+            <option value="Physics">Physics</option>
+            <option value="Chemistry">Chemistry</option>
+            <option value="Biology">Biology</option>
+            <option value="Other">Other</option>
+          </select>
+        </div>
+
+        <!-- Level/Year -->
+        <div class="form-group">
+          <label for="levelInput">Academic Level</label>
+          <select id="levelInput" name="level" required>
+            <option value="">-- Select Level --</option>
+            <option value="100">100 (First Year)</option>
+            <option value="200">200 (Second Year)</option>
+            <option value="300">300 (Third Year)</option>
+            <option value="400">400 (Fourth Year)</option>
+            <option value="500">500 (Fifth Year)</option>
+          </select>
+        </div>
+
+        <!-- Password -->
+        <div class="form-group">
+          <label for="regPasswordInput">Create Password</label>
+          <div class="password-wrapper">
+            <input type="password" id="regPasswordInput" name="password" placeholder="Min 6 characters" required
+              autocomplete="new-password" minlength="6" maxlength="100" />
+            <button type="button" id="regTogglePassword" class="toggle-password" aria-label="Toggle password visibility">
+              👁
+            </button>
+          </div>
+        </div>
+
+        <!-- Confirm Password -->
+        <div class="form-group">
+          <label for="confirmPasswordInput">Confirm Password</label>
+          <div class="password-wrapper">
+            <input type="password" id="confirmPasswordInput" name="confirmPassword" placeholder="Re-enter your password" required
+              autocomplete="new-password" minlength="6" maxlength="100" />
+            <button type="button" id="confirmTogglePassword" class="toggle-password" aria-label="Toggle password visibility">
+              👁
+            </button>
+          </div>
+        </div>
+
+        <!-- Register button -->
+        <button type="submit" id="registerBtn" class="btn-submit">
+          <span id="registerBtnText">Create Account</span>
+          <span id="registerSpinner" class="spinner hidden"></span>
+        </button>
+
+        <p class="form-note">
+          All fields are required. You'll receive a confirmation message upon successful registration.
+        </p>
+
+      </form>
+
+    </div><!-- end auth-card -->
 
     <!-- Decorative background shapes -->
-    <div class="login-bg-shape login-bg-shape-1"></div>
-    <div class="login-bg-shape login-bg-shape-2"></div>
+    <div class="auth-bg-shape auth-bg-shape-1"></div>
+    <div class="auth-bg-shape auth-bg-shape-2"></div>
 
-  </div><!-- end loginScreen -->
+  </div><!-- end authScreen -->
 
 
   <!-- ============================================================
