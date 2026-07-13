@@ -1,0 +1,438 @@
+/* ============================================================
+    5. AUTH SCREEN (Login/Registration)
+    ============================================================ */
+
+/* Main auth screen background */
+.auth-screen {
+  position       : relative;
+  min-height     : 100vh;
+  display        : flex;
+  align-items    : center;
+  justify-content: center;
+  background     : linear-gradient(135deg, var(--primary-dark) 0%, var(--secondary) 100%);
+  padding        : 20px;
+  overflow       : hidden;
+}
+
+/* Decorative background shapes */
+.auth-bg-shape {
+  position     : absolute;
+  border-radius: 50%;
+  opacity      : 0.12;
+  pointer-events: none;
+}
+
+.auth-bg-shape-1 {
+  width     : 500px;
+  height    : 500px;
+  background: #ffffff;
+  top       : -100px;
+  right     : -100px;
+}
+
+.auth-bg-shape-2 {
+  width     : 350px;
+  height    : 350px;
+  background: #ffffff;
+  bottom    : -80px;
+  left      : -80px;
+}
+
+/* Auth card container */
+.auth-card {
+  position        : relative;
+  z-index         : 1;
+  width           : 100%;
+  max-width       : 450px;
+  background      : var(--bg-card);
+  border-radius   : var(--radius-xl);
+  box-shadow      : var(--shadow-lg);
+  padding         : 40px 36px;
+  animation       : fadeInUp 0.4s ease;
+}
+
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0);    }
+}
+
+/* Auth branding section */
+.auth-branding {
+  display        : flex;
+  flex-direction : column;
+  align-items    : center;
+  margin-bottom  : 28px;
+  text-align     : center;
+  gap            : 8px;
+}
+
+.auth-logo {
+  width        : 80px;
+  height       : 80px;
+  object-fit   : contain;
+  border-radius: 50%;
+  border       : 3px solid var(--primary-light);
+  background   : var(--primary-light);
+  padding      : 4px;
+}
+
+.auth-university-name {
+  font-size  : 1.3rem;
+  font-weight: 700;
+  color      : var(--text-primary);
+  margin-top : 4px;
+}
+
+.auth-subtitle {
+  font-size : var(--font-size-sm);
+  color     : var(--text-secondary);
+  margin    : 0;
+}
+
+/* ============================================================
+    Toggle buttons between Login and Register
+    ============================================================ */
+.auth-toggle {
+  display      : flex;
+  gap          : 10px;
+  margin-bottom: 24px;
+  border-bottom: 2px solid var(--border-color);
+}
+
+.toggle-btn {
+  flex         : 1;
+  padding      : 12px 16px;
+  background   : none;
+  border       : none;
+  color        : var(--text-secondary);
+  font-size    : var(--font-size-base);
+  font-weight  : 600;
+  cursor       : pointer;
+  transition   : all var(--transition);
+  border-bottom: 3px solid transparent;
+  position     : relative;
+  bottom       : -2px;
+}
+
+.toggle-btn:hover {
+  color: var(--text-primary);
+}
+
+.toggle-btn.active {
+  color        : var(--primary);
+  border-bottom-color: var(--primary);
+}
+
+/* ============================================================
+    Auth Forms (Login and Register)
+    ============================================================ */
+.auth-form {
+  display       : flex;
+  flex-direction: column;
+  gap           : 18px;
+  opacity       : 0;
+  visibility    : hidden;
+  position      : absolute;
+  pointer-events: none;
+  transition    : opacity var(--transition), visibility var(--transition);
+}
+
+.auth-form.active {
+  opacity       : 1;
+  visibility    : visible;
+  position      : relative;
+  pointer-events: auto;
+}
+
+/* Form groups (field wrapper) */
+.form-group {
+  display       : flex;
+  flex-direction: column;
+  gap           : 6px;
+}
+
+.form-group label {
+  font-size  : var(--font-size-sm);
+  font-weight: 600;
+  color      : var(--text-primary);
+}
+
+.form-group input,
+.form-group select {
+  width        : 100%;
+  padding      : 12px 14px;
+  border       : 1.5px solid var(--border-color);
+  border-radius: var(--radius-md);
+  background   : var(--bg-input);
+  color        : var(--text-primary);
+  font-size    : var(--font-size-base);
+  transition   : border-color var(--transition), box-shadow var(--transition);
+  font-family  : inherit;
+}
+
+.form-group input:focus,
+.form-group select:focus {
+  border-color: var(--primary);
+  box-shadow  : 0 0 0 3px rgba(11, 93, 58, 0.15);
+  background  : #fff;
+}
+
+/* Placeholder styling */
+.form-group input::placeholder {
+  color: var(--text-secondary);
+}
+
+/* Select dropdown styling */
+.form-group select {
+  cursor: pointer;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23b45309' d='M6 9L1 4h10z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+  padding-right: 36px;
+}
+
+/* Password wrapper with eye toggle */
+.password-wrapper {
+  position: relative;
+}
+
+.password-wrapper input {
+  padding-right: 46px;
+}
+
+.toggle-password {
+  position        : absolute;
+  right           : 12px;
+  top             : 50%;
+  transform       : translateY(-50%);
+  background      : none;
+  border          : none;
+  font-size       : 16px;
+  color           : var(--text-secondary);
+  padding         : 0;
+  line-height     : 1;
+  cursor          : pointer;
+  transition      : color var(--transition);
+}
+
+.toggle-password:hover {
+  color: var(--primary);
+}
+
+/* Error message box */
+.auth-error {
+  display      : none;
+  padding      : 10px 14px;
+  background   : #fef2f2;
+  border       : 1px solid #fca5a5;
+  border-radius: var(--radius-md);
+  color        : #dc2626;
+  font-size    : var(--font-size-sm);
+  line-height  : 1.4;
+  animation    : shake 0.35s ease;
+}
+
+.auth-error:not(:empty) {
+  display: block;
+}
+
+.auth-error.success {
+  background: #f0fdf4;
+  border-color: #86efac;
+  color: #16a34a;
+}
+
+@keyframes shake {
+  0%, 100% { transform: translateX(0);   }
+  20%, 60% { transform: translateX(-5px); }
+  40%, 80% { transform: translateX(5px);  }
+}
+
+/* Submit button */
+.btn-submit {
+  display        : flex;
+  align-items    : center;
+  justify-content: center;
+  gap            : 8px;
+  padding        : 13px;
+  background     : var(--primary);
+  color          : var(--text-on-primary);
+  border-radius  : var(--radius-md);
+  border         : none;
+  font-size      : var(--font-size-base);
+  font-weight    : 600;
+  letter-spacing : 0.3px;
+  cursor         : pointer;
+  transition     : background var(--transition), transform var(--transition);
+  margin-top     : 4px;
+}
+
+.btn-submit:hover {
+  background: var(--primary-dark);
+  transform : translateY(-1px);
+}
+
+.btn-submit:active {
+  transform: translateY(0);
+}
+
+.btn-submit:disabled {
+  background: var(--text-secondary);
+  cursor    : not-allowed;
+  transform : none;
+}
+
+/* Demo hint for login */
+.demo-hint {
+  text-align: center;
+  font-size : var(--font-size-sm);
+  color     : var(--text-secondary);
+  margin    : 4px 0 0 0;
+}
+
+/* Form note for registration */
+.form-note {
+  text-align: center;
+  font-size : var(--font-size-sm);
+  color     : var(--text-secondary);
+  margin    : 4px 0 0 0;
+}
+
+/* Hidden utility class */
+.hidden {
+  display: none !important;
+}
+
+/* ============================================================
+    Login Screen (for backward compatibility)
+    ============================================================ */
+.login-screen {
+  position       : relative;
+  min-height     : 100vh;
+  display        : flex;
+  align-items    : center;
+  justify-content: center;
+  background     : linear-gradient(135deg, var(--primary-dark) 0%, var(--secondary) 100%);
+  padding        : 20px;
+  overflow       : hidden;
+}
+
+.login-bg-shape {
+  position     : absolute;
+  border-radius: 50%;
+  opacity      : 0.12;
+  pointer-events: none;
+}
+
+.login-bg-shape-1 {
+  width     : 500px;
+  height    : 500px;
+  background: #ffffff;
+  top       : -100px;
+  right     : -100px;
+}
+
+.login-bg-shape-2 {
+  width     : 350px;
+  height    : 350px;
+  background: #ffffff;
+  bottom    : -80px;
+  left      : -80px;
+}
+
+.login-card {
+  position        : relative;
+  z-index         : 1;
+  width           : 100%;
+  max-width       : 420px;
+  background      : var(--bg-card);
+  border-radius   : var(--radius-xl);
+  box-shadow      : var(--shadow-lg);
+  padding         : 40px 36px;
+  animation       : fadeInUp 0.4s ease;
+}
+
+.login-branding {
+  display        : flex;
+  flex-direction : column;
+  align-items    : center;
+  margin-bottom  : 28px;
+  text-align     : center;
+  gap            : 8px;
+}
+
+.login-logo {
+  width        : 80px;
+  height       : 80px;
+  object-fit   : contain;
+  border-radius: 50%;
+  border       : 3px solid var(--primary-light);
+  background   : var(--primary-light);
+  padding      : 4px;
+}
+
+.login-university-name {
+  font-size  : 1.3rem;
+  font-weight: 700;
+  color      : var(--text-primary);
+  margin-top : 4px;
+}
+
+.login-subtitle {
+  font-size : var(--font-size-sm);
+  color     : var(--text-secondary);
+  margin    : 0;
+}
+
+.login-form {
+  display       : flex;
+  flex-direction: column;
+  gap           : 18px;
+}
+
+.login-error {
+  display      : none;
+  padding      : 10px 14px;
+  background   : #fef2f2;
+  border       : 1px solid #fca5a5;
+  border-radius: var(--radius-md);
+  color        : #dc2626;
+  font-size    : var(--font-size-sm);
+  line-height  : 1.4;
+}
+
+.login-error.visible {
+  display: block;
+  animation: shake 0.35s ease;
+}
+
+.btn-login {
+  display        : flex;
+  align-items    : center;
+  justify-content: center;
+  gap            : 8px;
+  padding        : 13px;
+  background     : var(--primary);
+  color          : var(--text-on-primary);
+  border-radius  : var(--radius-md);
+  font-size      : var(--font-size-base);
+  font-weight    : 600;
+  letter-spacing : 0.3px;
+  transition     : background var(--transition), transform var(--transition);
+}
+
+.btn-login:hover {
+  background: var(--primary-dark);
+  transform : translateY(-1px);
+}
+
+.btn-login:active {
+  transform: translateY(0);
+}
+
+.btn-login:disabled {
+  background: var(--text-secondary);
+  cursor    : not-allowed;
+  transform : none;
+}
